@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.vitasoft.dvorakbackend.domain.enums.UserRole;
+import io.vitasoft.dvorakbackend.domain.user.MemberRole;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.codec.DecodingException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(int userId, UserRole role) {
+    public String generateJwtToken(Long userId, MemberRole role) {
         SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         Date now = new Date();
         Date expireAt = new Date(now.getTime() + jwtExpirationMs);
@@ -67,7 +67,7 @@ public class JwtTokenProvider {
 
     private Collection<GrantedAuthority> getAuthorities(Claims claims) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        UserRole role = claims.get("role", UserRole.class);
+        MemberRole role = claims.get("role", MemberRole.class);
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.toString());
         grantedAuthorities.add(simpleGrantedAuthority);
         return grantedAuthorities;

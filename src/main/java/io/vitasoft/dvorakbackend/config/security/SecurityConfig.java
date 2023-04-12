@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/OpenStack/**").permitAll()
+                .antMatchers("/hello").permitAll()
                 .anyRequest().hasRole("USER")
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, objectMapper), UsernamePasswordAuthenticationFilter.class);

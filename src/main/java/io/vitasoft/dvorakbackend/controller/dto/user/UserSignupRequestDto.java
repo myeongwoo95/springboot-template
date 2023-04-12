@@ -1,7 +1,6 @@
 package io.vitasoft.dvorakbackend.controller.dto.user;
 
-import io.vitasoft.dvorakbackend.domain.user.User;
-import lombok.Builder;
+import io.vitasoft.dvorakbackend.domain.user.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,8 +19,8 @@ public class UserSignupRequestDto {
     @Size(max = 30, message = "비밀번호는 30자 이하여야 합니다.")
     private String password;
 
-    public User toEntity() {
-        return User.builder()
+    public Member toEntity() {
+        return Member.builder()
                 .username(username)
                 .password(password)
                 .build();

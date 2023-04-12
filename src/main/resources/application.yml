@@ -11,15 +11,26 @@ server:
       enabled: true
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher # swagger
+
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://10.0.99.194:3306/portal?serverTimezone=Asia/Seoul
-    username: portal
-    password: portal001
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+#  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://IP:3306/portal?serverTimezone=Asia/Seoul
+#    username:
+#    password:
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect #org.hibernate.dialect.H2Dialect, org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: update # DO NOT MODIFY THIS OPTION EVER EVER NEVER!!!
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:

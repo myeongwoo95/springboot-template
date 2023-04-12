@@ -2,8 +2,8 @@ package io.vitasoft.dvorakbackend.service;
 
 import io.vitasoft.dvorakbackend.controller.dto.user.UserSignInRequestDto;
 import io.vitasoft.dvorakbackend.controller.dto.user.UserSignupRequestDto;
-import io.vitasoft.dvorakbackend.domain.user.User;
-import io.vitasoft.dvorakbackend.domain.user.UserRepository;
+import io.vitasoft.dvorakbackend.domain.user.Member;
+import io.vitasoft.dvorakbackend.domain.user.MemberRepository;
 import io.vitasoft.dvorakbackend.handler.exception.user.UserAlreadyExistsException;
 import io.vitasoft.dvorakbackend.handler.exception.user.UserNotFoundException;
 import io.vitasoft.dvorakbackend.handler.exception.user.UserPasswordInvalidException;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
 
     public void signup(UserSignupRequestDto requestDto) {
         if (userRepository.existsByUsername(requestDto.getUsername()))
@@ -30,13 +30,11 @@ public class UserService {
     }
 
     public String signIn(UserSignInRequestDto requestDto) {
-        User user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(UserNotFoundException::new);
+        Member user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(UserNotFoundException::new);
 
         if(!bCryptPasswordEncoder.matches(requestDto.getPassword(), user.getPassword()))
             throw new UserPasswordInvalidException();
 
         return jwtTokenProvider.generateJwtToken(user.getId(), user.getRole());
     }
-
-
 }
