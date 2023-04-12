@@ -23,10 +23,14 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
     @Builder
-    public Member(String username, String password) {
+    public Member(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.role = MemberRole.ROLE_USER;
     }
 }
