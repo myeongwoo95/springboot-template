@@ -1,4 +1,4 @@
-package io.vitasoft.dvorakbackend.controller.dto.user;
+package io.vitasoft.dvorakbackend.controller.dto.member;
 
 import io.vitasoft.dvorakbackend.domain.user.Member;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
-public class UserSignupRequestDto {
+public class MemberSignupRequestDto {
 
     @NotNull(message = "사용자명은 필수 입력값입니다.")
     @Size(max = 30, message = "사용자명은 30자 이하여야 합니다.")

@@ -18,6 +18,6 @@ public class LogAdvice {
     @Before("execution(* *..controller.*.*(..))")
     public void recordRequestURI() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        log.info(request.getRequestURI());
+        log.info("Request = " + request.getMethod() + " " + request.getRequestURI());
     }
 }

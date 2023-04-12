@@ -1,9 +1,9 @@
 package io.vitasoft.dvorakbackend.handler.exception;
 
 import io.vitasoft.dvorakbackend.controller.dto.ErrorResponseDto;
-import io.vitasoft.dvorakbackend.handler.exception.user.UserAlreadyExistsException;
-import io.vitasoft.dvorakbackend.handler.exception.user.UserNotFoundException;
-import io.vitasoft.dvorakbackend.handler.exception.user.UserPasswordInvalidException;
+import io.vitasoft.dvorakbackend.handler.exception.member.MemberAlreadyExistsException;
+import io.vitasoft.dvorakbackend.handler.exception.member.MemberNotFoundException;
+import io.vitasoft.dvorakbackend.handler.exception.member.MemberPasswordInvalidException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
-public class UserExceptionHandler {
+public class MemberExceptionHandler {
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ExceptionHandler(MemberAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponseDto handleUserAlreadyExists(UserAlreadyExistsException exception) {
+    public ErrorResponseDto handleUserAlreadyExists(MemberAlreadyExistsException exception) {
         return new ErrorResponseDto(HttpStatus.CONFLICT, "Auth-001", exception.getMessage());
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(MemberNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponseDto handleUserNotFound(UserNotFoundException exception) {
+    public ErrorResponseDto handleUserNotFound(MemberNotFoundException exception) {
         return new ErrorResponseDto(HttpStatus.NOT_FOUND, "Auth-002", exception.getMessage());
     }
 
-    @ExceptionHandler(UserPasswordInvalidException.class)
+    @ExceptionHandler(MemberPasswordInvalidException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ErrorResponseDto handleUserPasswordInvalidException(UserPasswordInvalidException exception) {
+    public ErrorResponseDto handleUserPasswordInvalidException(MemberPasswordInvalidException exception) {
         return new ErrorResponseDto(HttpStatus.UNAUTHORIZED, "Auth-003", exception.getMessage());
     }
 }
