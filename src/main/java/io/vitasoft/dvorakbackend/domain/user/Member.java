@@ -27,6 +27,6 @@ public class Member {
     public Member(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = MemberRole.USER;
+        this.role = MemberRole.ROLE_USER;
     }
 }
