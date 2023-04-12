@@ -5,7 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
-import io.vitasoft.dvorakbackend.controller.dto.ErrorResponseDto;
+import io.vitasoft.dvorakbackend.controller.dto.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.codec.DecodingException;
 import org.springframework.http.HttpStatus;
@@ -48,6 +48,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     private void sendErrorMessage(HttpServletResponse response, String error, String message) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON.toString());
-        response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponseDto(HttpStatus.FORBIDDEN, error, message)));
+        response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse(HttpStatus.FORBIDDEN, error, message)));
     }
 }

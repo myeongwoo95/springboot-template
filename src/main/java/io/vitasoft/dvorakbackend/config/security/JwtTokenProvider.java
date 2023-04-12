@@ -29,13 +29,13 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(Long userId, MemberRole role) {
+    public String generateJwtToken(Long memberId, MemberRole memberRole) {
         SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         Date now = new Date();
         Date expireAt = new Date(now.getTime() + jwtExpirationMs);
         return Jwts.builder()
-                .claim("userId", userId)
-                .claim("role", role)
+                .claim("memberId", memberId)
+                .claim("memberRole", memberRole.toString())
                 .setIssuedAt(now)
                 .setExpiration(expireAt)
                 .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -62,13 +62,13 @@ public class JwtTokenProvider {
     }
 
     protected Authentication getAuthentication(Claims claims) {
-        return new UsernamePasswordAuthenticationToken(claims.get("userId"), "", getAuthorities(claims));
+        return new UsernamePasswordAuthenticationToken(claims.get("memberId"), "", getAuthorities(claims));
     }
 
     private Collection<GrantedAuthority> getAuthorities(Claims claims) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        MemberRole role = claims.get("role", MemberRole.class);
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.toString());
+        String role = claims.get("memberRole", String.class);
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role);
         grantedAuthorities.add(simpleGrantedAuthority);
         return grantedAuthorities;
     }

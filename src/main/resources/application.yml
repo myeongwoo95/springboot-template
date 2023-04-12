@@ -40,5 +40,5 @@ spring:
 
 # jwt
 app:
-  jwtSecret: vitasoftvitasoftvitasoftvitasoftvitasoft
+  jwtSecret: vitasoftvitasoftvitasoftvitasoftvitasoftvitasoftvitasoftvitasoftvitasoftvitasoft # 64
   jwtExpirationMs: 3600000

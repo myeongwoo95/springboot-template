@@ -1,6 +1,6 @@
 package io.vitasoft.dvorakbackend.handler.exception;
 
-import io.vitasoft.dvorakbackend.controller.dto.ErrorResponseDto;
+import io.vitasoft.dvorakbackend.controller.dto.ErrorResponse;
 import io.vitasoft.dvorakbackend.handler.exception.member.MemberAlreadyExistsException;
 import io.vitasoft.dvorakbackend.handler.exception.member.MemberNotFoundException;
 import io.vitasoft.dvorakbackend.handler.exception.member.MemberPasswordInvalidException;
@@ -18,19 +18,19 @@ public class MemberExceptionHandler {
 
     @ExceptionHandler(MemberAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponseDto handleUserAlreadyExists(MemberAlreadyExistsException exception) {
-        return new ErrorResponseDto(HttpStatus.CONFLICT, "Auth-001", exception.getMessage());
+    public ErrorResponse handleUserAlreadyExists(MemberAlreadyExistsException exception) {
+        return new ErrorResponse(HttpStatus.CONFLICT, "Auth-001", exception.getMessage());
     }
 
     @ExceptionHandler(MemberNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponseDto handleUserNotFound(MemberNotFoundException exception) {
-        return new ErrorResponseDto(HttpStatus.NOT_FOUND, "Auth-002", exception.getMessage());
+    public ErrorResponse handleUserNotFound(MemberNotFoundException exception) {
+        return new ErrorResponse(HttpStatus.NOT_FOUND, "Auth-002", exception.getMessage());
     }
 
     @ExceptionHandler(MemberPasswordInvalidException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ErrorResponseDto handleUserPasswordInvalidException(MemberPasswordInvalidException exception) {
-        return new ErrorResponseDto(HttpStatus.UNAUTHORIZED, "Auth-003", exception.getMessage());
+    public ErrorResponse handleUserPasswordInvalidException(MemberPasswordInvalidException exception) {
+        return new ErrorResponse(HttpStatus.UNAUTHORIZED, "Auth-003", exception.getMessage());
     }
 }
