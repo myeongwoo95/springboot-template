@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://10.0.99.194:3306/portal?serverTimezone=Asia/Seoul
+    username: portal
+    password: portal001
+
+  jpa:
+    hibernate:
+      ddl-auto: update # DO NOT MODIFY THIS OPTION EVER EVER NEVER!!!
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+# jwt
+app:
+  jwtSecret: vitasoftvitasoftvitasoftvitasoftvitasoft
+  jwtExpirationMs: 3600000
