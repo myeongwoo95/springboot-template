@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
 public class Oauth2UserService extends DefaultOAuth2UserService {
 
     private final MemberRepository memberRepository;
@@ -60,13 +59,12 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         String password = bCryptPasswordEncoder.encode("username");
         String email = oAuth2UserInfo.getEmail();
 
-        boolean existsByUsername = memberRepository.existsByUsername(username); // 변수명 머냥...
+        boolean existsByUsername = memberRepository.existsByEmail(username); // 변수명 머냥...
 
         if(!existsByUsername){
             Member member = Member.builder()
-                    .username(username)
-                    .password(password)
                     .email(email)
+                    .password(password)
                     .build();
 
             memberRepository.save(member);

@@ -1,7 +1,7 @@
 package io.vitasoft.dvorakbackend.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.vitasoft.dvorakbackend.config.oauth.Oauth2UserService;
+//import io.vitasoft.dvorakbackend.config.oauth.Oauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
-    private final Oauth2UserService oauth2UserService;
+    //private final Oauth2UserService oauth2UserService;
 
 
     @Bean

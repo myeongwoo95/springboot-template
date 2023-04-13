@@ -22,7 +22,7 @@ public class MemberService {
     private final MemberRepository userRepository;
 
     public void signup(MemberSignupRequestDto requestDto) {
-        if (userRepository.existsByUsername(requestDto.getUsername()))
+        if (userRepository.existsByEmail(requestDto.getUsername()))
             throw new MemberAlreadyExistsException();
 
         requestDto.updatePassword(bCryptPasswordEncoder.encode(requestDto.getPassword()));
@@ -30,7 +30,7 @@ public class MemberService {
     }
 
     public String signIn(MemberSignInRequestDto requestDto) {
-        Member user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(MemberNotFoundException::new);
+        Member user = userRepository.findByEmail(requestDto.getUsername()).orElseThrow(MemberNotFoundException::new);
 
         if(!bCryptPasswordEncoder.matches(requestDto.getPassword(), user.getPassword()))
             throw new MemberPasswordInvalidException();
