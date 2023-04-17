@@ -127,3 +127,14 @@ RTR이란 Refresh Token Rotation 방식의 약자로, Refresh Token을 한번만
 RefreshToken을 사용하여 만료된 AccessToken을 재발급 받을 때, Refresh Token도 재발급하는 방법입니다.
 이러한 방식이 나온 이유는, RefreshToken이 탈취된다면 AccessToken을 계속 생성할 수 있기 때문입니다.
 RefreshToken은 만료 기간이 길기 때문에 이러한 상황이 된다면 상당히 위험해집니다.
+
+# 자체 JSON 로그인 커스텀 하는 이유 
+Spring Security에서는 일반 Form Login을 기본적으로 제공하지만,
+
+JSON 형식의 RequestBody로 하는 로그인 방식은 기본적으로 제공하지 않습니다.
+
+따라서, JSON 로그인 방식을 사용하기 위해 커스텀 필터를 구현해야합니다.
+
+이때, Form Login 시 기본적으로 사용되는 UsernamePasswordAuthenticationFilter의 코드를 참고하여 구현합니다.
+
+참고 : https://ttl-blog.tistory.com/268
