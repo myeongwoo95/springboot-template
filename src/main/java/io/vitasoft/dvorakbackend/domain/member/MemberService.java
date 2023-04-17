@@ -1,9 +1,7 @@
-package io.vitasoft.dvorakbackend.service;
+package io.vitasoft.dvorakbackend.domain.member;
 
-import io.vitasoft.dvorakbackend.controller.dto.member.MemberSignInRequestDto;
-import io.vitasoft.dvorakbackend.controller.dto.member.MemberSignupRequestDto;
-import io.vitasoft.dvorakbackend.domain.user.Member;
-import io.vitasoft.dvorakbackend.domain.user.MemberRepository;
+import io.vitasoft.dvorakbackend.domain.member.dto.MemberSignInRequestDto;
+import io.vitasoft.dvorakbackend.domain.member.dto.MemberSignupRequestDto;
 import io.vitasoft.dvorakbackend.handler.exception.member.MemberAlreadyExistsException;
 import io.vitasoft.dvorakbackend.handler.exception.member.MemberNotFoundException;
 import io.vitasoft.dvorakbackend.handler.exception.member.MemberPasswordInvalidException;
@@ -22,7 +20,7 @@ public class MemberService {
     private final MemberRepository userRepository;
 
     public void signup(MemberSignupRequestDto requestDto) {
-        if (userRepository.existsByEmail(requestDto.getUsername()))
+        if (userRepository.existsByEmail(requestDto.getEmail()))
             throw new MemberAlreadyExistsException();
 
         requestDto.updatePassword(bCryptPasswordEncoder.encode(requestDto.getPassword()));
@@ -35,6 +33,6 @@ public class MemberService {
         if(!bCryptPasswordEncoder.matches(requestDto.getPassword(), user.getPassword()))
             throw new MemberPasswordInvalidException();
 
-        return jwtTokenProvider.generateJwtToken(user.getId(), user.getRole());
+        return jwtTokenProvider.createAccessToken(user.getEmail());
     }
 }

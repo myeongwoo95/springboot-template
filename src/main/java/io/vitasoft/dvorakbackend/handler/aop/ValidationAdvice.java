@@ -1,9 +1,11 @@
 package io.vitasoft.dvorakbackend.handler.aop;
 
-import io.vitasoft.dvorakbackend.handler.exception.validation.CustomValidationException;
+import io.vitasoft.dvorakbackend.handler.exception.validation.ValidationException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -29,7 +31,7 @@ public class ValidationAdvice {
                         System.out.println(error.getDefaultMessage());
                     }
 
-                    throw new CustomValidationException("유효성 검사 실패하였습니다.", errorMap);
+                    throw new ValidationException("유효성 검사 실패하였습니다.", errorMap);
                 }
             }
         }

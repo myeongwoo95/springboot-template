@@ -1,4 +1,4 @@
-package io.vitasoft.dvorakbackend.controller.dto.member;
+package io.vitasoft.dvorakbackend.domain.member.dto;
 
 import lombok.*;
 

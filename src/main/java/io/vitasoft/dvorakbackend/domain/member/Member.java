@@ -1,7 +1,8 @@
-package io.vitasoft.dvorakbackend.domain.user;
+package io.vitasoft.dvorakbackend.domain.member;
 
+import io.vitasoft.dvorakbackend.domain.member.enums.MemberRole;
+import io.vitasoft.dvorakbackend.domain.member.enums.SocialType;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -19,6 +20,8 @@ public class Member {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
     private String nickname;
     private String imageUrl;
@@ -31,19 +34,10 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private SocialType socialType; // FACEBOOK, GOOGLE, KAKAO, NAVER
 
+    @Column(unique = true)
     private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null)
 
     private String refreshToken; // 리프레시 토큰
-
-    // 유저 권한 설정 메소드
-    public void authorizeUser() {
-        this.role = MemberRole.USER;
-    }
-
-    // 비밀번호 암호화 메소드
-    public void passwordEncode(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
-    }
 
     public void updateRefreshToken(String updateRefreshToken) {
         this.refreshToken = updateRefreshToken;

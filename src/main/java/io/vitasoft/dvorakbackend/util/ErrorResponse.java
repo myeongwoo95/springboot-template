@@ -1,4 +1,4 @@
-package io.vitasoft.dvorakbackend.controller.dto;
+package io.vitasoft.dvorakbackend.util;
 
 import org.springframework.http.HttpStatus;
 

@@ -1,10 +1,8 @@
 package io.vitasoft.dvorakbackend.handler.exception;
 
-import io.vitasoft.dvorakbackend.controller.dto.ErrorResponse;
-import io.vitasoft.dvorakbackend.handler.exception.validation.CustomValidationException;
+import io.vitasoft.dvorakbackend.util.ErrorResponse;
+import io.vitasoft.dvorakbackend.handler.exception.validation.ValidationException;
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class GeneralExceptionHandler {
 
@@ -52,9 +49,9 @@ public class GeneralExceptionHandler {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "System-005", "잘못된 parameter 입니다. value: " + exception.getValue());
     }
 
-    @ExceptionHandler(CustomValidationException.class)
+    @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleCustomValidationException(CustomValidationException e) {
+    public ErrorResponse handleValidationException(ValidationException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "Validation-001", "유효성 검사에 실패했습니다. value: " + e.getErrorMap());
     }
 

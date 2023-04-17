@@ -1,10 +1,13 @@
-package io.vitasoft.dvorakbackend.controller;
+package io.vitasoft.dvorakbackend.domain.member;
 
 import io.swagger.annotations.ApiOperation;
-import io.vitasoft.dvorakbackend.controller.dto.member.*;
-import io.vitasoft.dvorakbackend.service.MemberService;
+import io.vitasoft.dvorakbackend.domain.member.MemberService;
+import io.vitasoft.dvorakbackend.domain.member.dto.MemberSignInRequestDto;
+import io.vitasoft.dvorakbackend.domain.member.dto.MemberSignInResponseDto;
+import io.vitasoft.dvorakbackend.domain.member.dto.MemberSignupRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,7 +28,7 @@ public class MemberController {
     @ApiOperation(value = "로그인")
     @PostMapping("/api/auth/signin")
     @ResponseStatus(HttpStatus.OK)
-    public MemberSignInResponseDto signIn(@RequestBody MemberSignInRequestDto userSignInRequestDto) {
+    public MemberSignInResponseDto signIn(@RequestBody MemberSignInRequestDto userSignInRequestDto, BindingResult bindingResult) {
         String accessToken = userService.signIn(userSignInRequestDto);
         return new MemberSignInResponseDto(accessToken);
     }
