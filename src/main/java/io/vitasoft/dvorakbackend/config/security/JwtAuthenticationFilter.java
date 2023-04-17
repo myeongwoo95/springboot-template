@@ -141,6 +141,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      *
      * SecurityContextHolder.getContext()로 SecurityContext를 꺼낸 후,
      * setAuthentication()을 이용하여 위에서 만든 Authentication 객체에 대한 인증 허가 처리
+     *
+     * ------------------------------------------------------------------------------
+     *
+     * UserDetails의 User를 Builder로 생성 후 해당 객체를 인증 처리하여
+     * 해당 유저 객체를 SecurityContextHolder에 담아 인증 처리를 진행합니다.
+     * (소셜 로그인의 경우 password가 null인데, 인증 처리 시 password가 null이면 안 되므로, 랜덤 패스워드를 임의로 부여해줍니다.)
      */
     public void saveAuthentication(Member member) {
         String password = member.getPassword();
